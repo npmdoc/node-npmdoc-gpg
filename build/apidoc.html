@@ -1,0 +1,781 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/drudge/node-gpg#readme"
+
+    >gpg (v0.6.0)</a>
+</h1>
+<h4>GPG encryption and decryption in node.js by way of the gpg command-line tool</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gpg">module gpg</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.call">
+            function <span class="apidocSignatureSpan">gpg.</span>call
+            <span class="apidocSignatureSpan">(stdin, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.callStreaming">
+            function <span class="apidocSignatureSpan">gpg.</span>callStreaming
+            <span class="apidocSignatureSpan">(inputFileName, outputFileName, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.clearsign">
+            function <span class="apidocSignatureSpan">gpg.</span>clearsign
+            <span class="apidocSignatureSpan">(str, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.decrypt">
+            function <span class="apidocSignatureSpan">gpg.</span>decrypt
+            <span class="apidocSignatureSpan">(str, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.decryptFile">
+            function <span class="apidocSignatureSpan">gpg.</span>decryptFile
+            <span class="apidocSignatureSpan">(file, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.decryptStream">
+            function <span class="apidocSignatureSpan">gpg.</span>decryptStream
+            <span class="apidocSignatureSpan">(stream, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.decryptToFile">
+            function <span class="apidocSignatureSpan">gpg.</span>decryptToFile
+            <span class="apidocSignatureSpan">(options, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.decryptToStream">
+            function <span class="apidocSignatureSpan">gpg.</span>decryptToStream
+            <span class="apidocSignatureSpan">(options, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.encrypt">
+            function <span class="apidocSignatureSpan">gpg.</span>encrypt
+            <span class="apidocSignatureSpan">(str, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.encryptFile">
+            function <span class="apidocSignatureSpan">gpg.</span>encryptFile
+            <span class="apidocSignatureSpan">(file, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.encryptStream">
+            function <span class="apidocSignatureSpan">gpg.</span>encryptStream
+            <span class="apidocSignatureSpan">(stream, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.encryptToFile">
+            function <span class="apidocSignatureSpan">gpg.</span>encryptToFile
+            <span class="apidocSignatureSpan">(options, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.encryptToStream">
+            function <span class="apidocSignatureSpan">gpg.</span>encryptToStream
+            <span class="apidocSignatureSpan">(options, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.importKey">
+            function <span class="apidocSignatureSpan">gpg.</span>importKey
+            <span class="apidocSignatureSpan">(keyStr, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.importKeyFromFile">
+            function <span class="apidocSignatureSpan">gpg.</span>importKeyFromFile
+            <span class="apidocSignatureSpan">(fileName, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.removeKey">
+            function <span class="apidocSignatureSpan">gpg.</span>removeKey
+            <span class="apidocSignatureSpan">(keyID, args, fn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.spawnGPG">
+            function <span class="apidocSignatureSpan">gpg.</span>spawnGPG
+            <span class="apidocSignatureSpan">(input, defaultArgs, args, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.verifySignature">
+            function <span class="apidocSignatureSpan">gpg.</span>verifySignature
+            <span class="apidocSignatureSpan">(str, args, fn)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.gpg.spawnGPG">module gpg.spawnGPG</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.spawnGPG.spawnGPG">
+            function <span class="apidocSignatureSpan">gpg.</span>spawnGPG
+            <span class="apidocSignatureSpan">(input, defaultArgs, args, cb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.gpg.spawnGPG.streaming">
+            function <span class="apidocSignatureSpan">gpg.spawnGPG.</span>streaming
+            <span class="apidocSignatureSpan">(options, args, cb)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gpg" id="apidoc.module.gpg">module gpg</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.call" id="apidoc.element.gpg.call">
+        function <span class="apidocSignatureSpan">gpg.</span>call
+        <span class="apidocSignatureSpan">(stdin, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">call = function (stdin, args, fn) {
+  spawnGPG(stdin, args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Node-GPG supports both direct calls to GPG with string arguments, and streaming calls for piping input and output
+from/to files.
+
+See [the source](lib/gpg.js) for more details.
+
+If a function you need is not implemented, you can call gpg directly with arguments of your choice by
+calling `gpg.<span class="apidocCodeKeywordSpan">call</span>(stdinStr, argsArray, cb)`, or `gpg.callStreaming(inputFileName, outputFileName
+, argsArray, cb)`.
+
+## Notes
+
+Existing implementations of PGP in Javascript are blocking and unfeasibly slow for server use.
+In casual testing, encrypting a simple 400-character email to an El-Gamal key took upwards of 11 seconds using
+[openpgpjs](https://github.com/openpgpjs/openpgpjs) and 14 seconds with [kbpgp](https://github.com/keybase/kbpgp),
+but takes less than 0.1 seconds with `gpg` directly.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.callStreaming" id="apidoc.element.gpg.callStreaming">
+        function <span class="apidocSignatureSpan">gpg.</span>callStreaming
+        <span class="apidocSignatureSpan">(inputFileName, outputFileName, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">callStreaming = function (inputFileName, outputFileName, args, fn) {
+  spawnGPG.streaming({source: inputFileName, dest: outputFileName}, args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Node-GPG supports both direct calls to GPG with string arguments, and streaming calls for piping input and output
+from/to files.
+
+See [the source](lib/gpg.js) for more details.
+
+If a function you need is not implemented, you can call gpg directly with arguments of your choice by
+calling `gpg.call(stdinStr, argsArray, cb)`, or `gpg.<span class="apidocCodeKeywordSpan">callStreaming</span>(inputFileName, outputFileName
+, argsArray, cb)`.
+
+## Notes
+
+Existing implementations of PGP in Javascript are blocking and unfeasibly slow for server use.
+In casual testing, encrypting a simple 400-character email to an El-Gamal key took upwards of 11 seconds using
+[openpgpjs](https://github.com/openpgpjs/openpgpjs) and 14 seconds with [kbpgp](https://github.com/keybase/kbpgp),
+but takes less than 0.1 seconds with `gpg` directly.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.clearsign" id="apidoc.element.gpg.clearsign">
+        function <span class="apidocSignatureSpan">gpg.</span>clearsign
+        <span class="apidocSignatureSpan">(str, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">clearsign = function (str, args, fn){
+  spawnGPG(str, [&#x27;--clearsign&#x27;], args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.decrypt" id="apidoc.element.gpg.decrypt">
+        function <span class="apidocSignatureSpan">gpg.</span>decrypt
+        <span class="apidocSignatureSpan">(str, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decrypt = function (str, args, fn){
+  spawnGPG(str, [&#x27;--decrypt&#x27;], args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.decryptFile" id="apidoc.element.gpg.decryptFile">
+        function <span class="apidocSignatureSpan">gpg.</span>decryptFile
+        <span class="apidocSignatureSpan">(file, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decryptFile = function (file, fn){
+  var self = this;
+
+  fs.readFile(file, function(err, content){
+    if (err) return fn(err);
+    self.decrypt(content, fn);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.decryptStream" id="apidoc.element.gpg.decryptStream">
+        function <span class="apidocSignatureSpan">gpg.</span>decryptStream
+        <span class="apidocSignatureSpan">(stream, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decryptStream = function (stream, args, fn){
+  var self   = this;
+  var chunks = [];
+
+  stream.on(&#x27;data&#x27;, function (chunk){
+    chunks.push(chunk);
+  });
+
+  stream.on(&#x27;end&#x27;, function (){
+    self.decrypt(Buffer.concat(chunks), args, fn);
+  });
+
+  stream.on(&#x27;error&#x27;, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.decryptToFile" id="apidoc.element.gpg.decryptToFile">
+        function <span class="apidocSignatureSpan">gpg.</span>decryptToFile
+        <span class="apidocSignatureSpan">(options, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decryptToFile = function (options, fn){
+  spawnGPG.streaming(options, [&#x27;--decrypt&#x27;], fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.decryptToStream" id="apidoc.element.gpg.decryptToStream">
+        function <span class="apidocSignatureSpan">gpg.</span>decryptToStream
+        <span class="apidocSignatureSpan">(options, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decryptToStream = function (options, fn){
+  spawnGPG.streaming(options, [&#x27;--decrypt&#x27;], fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.encrypt" id="apidoc.element.gpg.encrypt">
+        function <span class="apidocSignatureSpan">gpg.</span>encrypt
+        <span class="apidocSignatureSpan">(str, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">encrypt = function (str, args, fn){
+  spawnGPG(str, [&#x27;--encrypt&#x27;], args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.encryptFile" id="apidoc.element.gpg.encryptFile">
+        function <span class="apidocSignatureSpan">gpg.</span>encryptFile
+        <span class="apidocSignatureSpan">(file, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">encryptFile = function (file, fn){
+  var self = this;
+
+  fs.readFile(file, function(err, content){
+    if (err) return fn(err);
+    self.encrypt(content, fn);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.encryptStream" id="apidoc.element.gpg.encryptStream">
+        function <span class="apidocSignatureSpan">gpg.</span>encryptStream
+        <span class="apidocSignatureSpan">(stream, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">encryptStream = function (stream, args, fn){
+  var self   = this;
+  var chunks = [];
+
+  stream.on(&#x27;data&#x27;, function (chunk){
+    chunks.push(chunk);
+  });
+
+  stream.on(&#x27;end&#x27;, function (){
+    self.encrypt(Buffer.concat(chunks), args, fn);
+  });
+
+  stream.on(&#x27;error&#x27;, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.encryptToFile" id="apidoc.element.gpg.encryptToFile">
+        function <span class="apidocSignatureSpan">gpg.</span>encryptToFile
+        <span class="apidocSignatureSpan">(options, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">encryptToFile = function (options, fn){
+  spawnGPG.streaming(options, [&#x27;--encrypt&#x27;], fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.encryptToStream" id="apidoc.element.gpg.encryptToStream">
+        function <span class="apidocSignatureSpan">gpg.</span>encryptToStream
+        <span class="apidocSignatureSpan">(options, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">encryptToStream = function (options, fn){
+  spawnGPG.streaming(options, [&#x27;--encrypt&#x27;], fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.importKey" id="apidoc.element.gpg.importKey">
+        function <span class="apidocSignatureSpan">gpg.</span>importKey
+        <span class="apidocSignatureSpan">(keyStr, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">importKey = function (keyStr, args, fn){
+  if (typeof args === &#x27;function&#x27;) {
+    fn = args;
+    args = [];
+  }
+
+  // Set logger fd, verify otherwise outputs to stderr for whatever reason
+  var defaultArgs = [&#x27;--logger-fd&#x27;, &#x27;1&#x27;, &#x27;--import&#x27;];
+
+  spawnGPG(keyStr, defaultArgs, args, function(importError, result) {
+    if (importError) {
+      // Ignorable errors
+      if (/already in secret keyring/.test(importError.message)) {
+        result = importError.message;
+      } else {
+        return fn(importError);
+      }
+    }
+    // Grab key fingerprint and send it back as second arg
+    var match = result.toString().match(keyRegex);
+    fn(null, result.toString(), match &#x26;&#x26; match[1]);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.importKeyFromFile" id="apidoc.element.gpg.importKeyFromFile">
+        function <span class="apidocSignatureSpan">gpg.</span>importKeyFromFile
+        <span class="apidocSignatureSpan">(fileName, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">importKeyFromFile = function (fileName, args, fn){
+  if (typeof args === &#x27;function&#x27;) {
+    fn = args;
+    args = [];
+  }
+
+  var self = this;
+
+  fs.readFile(fileName, function(readErr, str) {
+    if (readErr) return fn(readErr);
+    self.importKey(str, args, fn);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.removeKey" id="apidoc.element.gpg.removeKey">
+        function <span class="apidocSignatureSpan">gpg.</span>removeKey
+        <span class="apidocSignatureSpan">(keyID, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">removeKey = function (keyID, args, fn){
+  // Set logger fd, verify otherwise outputs to stderr for whatever reason
+  var defaultArgs = [&#x27;--logger-fd&#x27;, &#x27;1&#x27;, &#x27;--delete-secret-and-public-key&#x27;];
+  spawnGPG(keyID, defaultArgs, args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.spawnGPG" id="apidoc.element.gpg.spawnGPG">
+        function <span class="apidocSignatureSpan">gpg.</span>spawnGPG
+        <span class="apidocSignatureSpan">(input, defaultArgs, args, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">spawnGPG = function (input, defaultArgs, args, cb) {
+  // Allow calling with (input, defaults, cb)
+  if (typeof args === &#x27;function&#x27;){
+    cb = args;
+    args = [];
+  }
+
+  cb = once(cb);
+
+  var gpgArgs = (args || []).concat(defaultArgs);
+  var buffers = [];
+  var buffersLength = 0;
+  var error = &#x27;&#x27;;
+  var gpg = spawnIt(gpgArgs, cb);
+
+  gpg.stdout.on(&#x27;data&#x27;, function (buf){
+    buffers.push(buf);
+    buffersLength += buf.length;
+  });
+
+  gpg.stderr.on(&#x27;data&#x27;, function(buf){
+    error += buf.toString(&#x27;utf8&#x27;);
+  });
+
+  gpg.on(&#x27;close&#x27;, function(code){
+    var msg = Buffer.concat(buffers, buffersLength);
+    if (code !== 0) {
+      // If error is empty, we probably redirected stderr to stdout (for verifySignature, import, etc)
+      return cb(new Error(error || msg));
+    }
+
+    cb(null, msg, error);
+  });
+
+  gpg.stdin.end(input);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.verifySignature" id="apidoc.element.gpg.verifySignature">
+        function <span class="apidocSignatureSpan">gpg.</span>verifySignature
+        <span class="apidocSignatureSpan">(str, args, fn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">verifySignature = function (str, args, fn){
+  // Set logger fd, verify otherwise outputs to stderr for whatever reason
+  var defaultArgs = [&#x27;--logger-fd&#x27;, &#x27;1&#x27;, &#x27;--verify&#x27;];
+  spawnGPG(str, defaultArgs, args, fn);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.gpg.spawnGPG" id="apidoc.module.gpg.spawnGPG">module gpg.spawnGPG</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.spawnGPG.spawnGPG" id="apidoc.element.gpg.spawnGPG.spawnGPG">
+        function <span class="apidocSignatureSpan">gpg.</span>spawnGPG
+        <span class="apidocSignatureSpan">(input, defaultArgs, args, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">spawnGPG = function (input, defaultArgs, args, cb) {
+  // Allow calling with (input, defaults, cb)
+  if (typeof args === &#x27;function&#x27;){
+    cb = args;
+    args = [];
+  }
+
+  cb = once(cb);
+
+  var gpgArgs = (args || []).concat(defaultArgs);
+  var buffers = [];
+  var buffersLength = 0;
+  var error = &#x27;&#x27;;
+  var gpg = spawnIt(gpgArgs, cb);
+
+  gpg.stdout.on(&#x27;data&#x27;, function (buf){
+    buffers.push(buf);
+    buffersLength += buf.length;
+  });
+
+  gpg.stderr.on(&#x27;data&#x27;, function(buf){
+    error += buf.toString(&#x27;utf8&#x27;);
+  });
+
+  gpg.on(&#x27;close&#x27;, function(code){
+    var msg = Buffer.concat(buffers, buffersLength);
+    if (code !== 0) {
+      // If error is empty, we probably redirected stderr to stdout (for verifySignature, import, etc)
+      return cb(new Error(error || msg));
+    }
+
+    cb(null, msg, error);
+  });
+
+  gpg.stdin.end(input);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.gpg.spawnGPG.streaming" id="apidoc.element.gpg.spawnGPG.streaming">
+        function <span class="apidocSignatureSpan">gpg.spawnGPG.</span>streaming
+        <span class="apidocSignatureSpan">(options, args, cb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">streaming = function (options, args, cb) {
+  cb = once(cb);
+  options = options || {};
+
+  var isSourceStream = isStream(options.source);
+  var isDestStream   = isStream(options.dest);
+
+  if (typeof options.source !== &#x27;string&#x27; &#x26;&#x26; !isSourceStream){
+    return cb(new Error(&#x27;Missing \&#x27;source\&#x27; option (string or stream)&#x27;));
+  } else if (typeof options.dest !== &#x27;string&#x27; &#x26;&#x26; !isDestStream){
+    return cb(new Error(&#x27;Missing \&#x27;dest\&#x27; option (string or stream)&#x27;));
+  }
+
+  var sourceStream;
+  if (!isSourceStream) {
+    // This will throw if the file doesn&#x27;t exist
+    try {
+      sourceStream = readStream(options.source);
+    } catch(e) {
+      return cb(new Error(options.source + &#x27; does not exist. Error: &#x27; + e.message));
+    }
+  } else {
+    sourceStream = options.source;
+  }
+
+  var destStream;
+  if (!isDestStream) {
+    try {
+      destStream = writeStream(options.dest);
+    } catch(e) {
+      return cb(new Error(&#x27;Error opening &#x27; + options.dest + &#x27;. Error: &#x27; + e.message));
+    }
+  } else {
+    destStream = options.dest;
+  }
+
+  // Go for it
+  var gpg = spawnIt(args, cb);
+
+  if (!isDestStream) {
+    gpg.on(&#x27;close&#x27;, function (code){
+      cb(null);
+    });
+  } else {
+    cb(null, destStream);
+  }
+
+  // Pipe input file into gpg stdin; gpg stdout into output file..
+  sourceStream.pipe(gpg.stdin);
+  gpg.stdout.pipe(destStream);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
