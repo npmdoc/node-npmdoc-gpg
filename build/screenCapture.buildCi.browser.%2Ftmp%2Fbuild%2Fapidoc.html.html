@@ -320,7 +320,22 @@ but takes less than 0.1 seconds with `gpg` directly.
     <li>description and source-code<pre class="apidocCodePre">clearsign = function (str, args, fn){
   spawnGPG(str, ['--clearsign'], args, fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+describe('clearsign', function(){
+  it('should clearsign data', function(done){
+    var mymessage = 'Hello, this is me!';
+    var args = [
+      '--trust-model', 'always'
+    , '--default-key', '6F20F59D'
+    ];
+    gpg.<span class="apidocCodeKeywordSpan">clearsign</span>(mymessage, args, function(err, clearsigned){
+      assert.ifError(err);
+      assert.ok(clearsigned.length);
+      done();
+    });
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -335,7 +350,23 @@ but takes less than 0.1 seconds with `gpg` directly.
     <li>description and source-code<pre class="apidocCodePre">decrypt = function (str, args, fn){
   spawnGPG(str, ['--decrypt'], args, fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @api public
+ */
+decryptFile: function(file, fn){
+  var self = this;
+
+  fs.readFile(file, function(err, content){
+    if (err) return fn(err);
+    self.<span class="apidocCodeKeywordSpan">decrypt</span>(content, fn);
+  });
+},
+
+/**
+ * Decrypt source file passed as `options.source` and store it in a file specified in `options.dest`.
+ *
+ * @param {Object}   options  Should contain 'source' and 'dest' keys.
+...</pre></li>
     </ul>
 
 
@@ -355,7 +386,18 @@ but takes less than 0.1 seconds with `gpg` directly.
     self.decrypt(content, fn);
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+/**
+ * Module dependencies.
+ */
+
+var gpg = require(__dirname + '/../lib/gpg')
+
+gpg.<span class="apidocCodeKeywordSpan">decryptFile</span>('/tmp/test.txt', function(err, contents){
+  console.log(contents);
+});
+...</pre></li>
     </ul>
 
 
@@ -381,7 +423,23 @@ but takes less than 0.1 seconds with `gpg` directly.
 
   stream.on('error', fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      '--default-key', '6F20F59D',
+      '--recipient', '6F20F59D',
+      '--trust-model', 'always', // so we don't get "no assurance this key belongs to the given user
+"
+    ];
+
+    var inStream = fs.createReadStream('./test/hello.gpg');
+
+    gpg.<span class="apidocCodeKeywordSpan">decryptStream</span>(inStream, args, function (err, res) {
+      assert.ifError(err);
+      assert.ok(/Hello World/.test(res));
+      done();
+    });
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -426,7 +484,23 @@ but takes less than 0.1 seconds with `gpg` directly.
     <li>description and source-code<pre class="apidocCodePre">encrypt = function (str, args, fn){
   spawnGPG(str, ['--encrypt'], args, fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @api public
+ */
+encryptFile: function(file, fn){
+  var self = this;
+
+  fs.readFile(file, function(err, content){
+    if (err) return fn(err);
+    self.<span class="apidocCodeKeywordSpan">encrypt</span>(content, fn);
+  });
+},
+
+/**
+ * Encrypt source stream passed as `options.source` and pass it to the stream specified in `options.dest`.
+ * Is basicaly the same method as `encryptToFile()`.
+ *
+...</pre></li>
     </ul>
 
 
@@ -472,7 +546,23 @@ but takes less than 0.1 seconds with `gpg` directly.
 
   stream.on('error', fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      '--recipient', '6F20F59D',
+      '--armor',
+      '--trust-model', 'always', // so we don't get "no assurance this key belongs to the given user
+"
+    ];
+
+    var inStream = fs.createReadStream('./test/hello.txt');
+
+    gpg.<span class="apidocCodeKeywordSpan">encryptStream</span>(inStream, args, function (err, res) {
+      assert.ifError(err);
+      assert.ok(/BEGIN PGP MESSAGE/.test(res));
+      done();
+    });
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -487,7 +577,19 @@ but takes less than 0.1 seconds with `gpg` directly.
     <li>description and source-code<pre class="apidocCodePre">encryptToFile = function (options, fn){
   spawnGPG.streaming(options, ['--encrypt'], fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+/**
+ * Module dependencies.
+ */
+
+var gpg = require(__dirname + '/../lib/gpg')
+
+gpg.<span class="apidocCodeKeywordSpan">encryptToFile</span>({source:__dirname + '/../lib/gpg.js', dest: '/tmp/test
+.txt' }, function(err, data){
+  console.log(err);
+});
+...</pre></li>
     </ul>
 
 
@@ -537,7 +639,23 @@ but takes less than 0.1 seconds with `gpg` directly.
     fn(null, result.toString(), match &amp;&amp; match[1]);
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    args = [];
+  }
+
+  var self = this;
+
+  fs.readFile(fileName, function(readErr, str) {
+    if (readErr) return fn(readErr);
+    self.<span class="apidocCodeKeywordSpan">importKey</span>(str, args, fn);
+  });
+},
+
+/**
+ * Add an ascii-armored key to gpg. Expects the key to be passed as input.
+ *
+ * @param {String}   keyStr  Key string (armored).
+...</pre></li>
     </ul>
 
 
@@ -562,7 +680,24 @@ but takes less than 0.1 seconds with `gpg` directly.
     self.importKey(str, args, fn);
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var encryptedString;
+
+/*global describe,it*/
+describe('gpg', function(){
+
+describe('import keys', function() {
+  it('should import the pubkey from file for the remaining tests', function(done) {
+    gpg.<span class="apidocCodeKeywordSpan">importKeyFromFile</span>(path.join(__dirname, 'test.pub.asc'), function(err
+, result, fingerprint) {
+      assert.ifError(err);
+      assert.ok(/Total number processed: 1/.test(result));
+      assert.ok(/key 6F20F59D:/.test(result));
+      assert.ok(fingerprint === '6F20F59D');
+      done();
+    });
+  });
+...</pre></li>
     </ul>
 
 
@@ -579,7 +714,22 @@ but takes less than 0.1 seconds with `gpg` directly.
   var defaultArgs = ['--logger-fd', '1', '--delete-secret-and-public-key'];
   spawnGPG(keyID, defaultArgs, args, fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      });
+    });
+  });
+});
+
+describe('remove keys', function() {
+  it('should remove both keys', function(done) {
+    gpg.<span class="apidocCodeKeywordSpan">removeKey</span>('6F20F59D', function(err, result) {
+      assert.ifError(err);
+      console.log(result.toString());
+      done();
+    });
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -644,7 +794,23 @@ but takes less than 0.1 seconds with `gpg` directly.
   var defaultArgs = ['--logger-fd', '1', '--verify'];
   spawnGPG(str, defaultArgs, args, fn);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    var args = [
+      '--trust-model', 'always'
+    , '--default-key', '6F20F59D'
+    ];
+    gpg.clearsign(mymessage, args, function(err, clearsigned){
+      assert.ifError(err);
+      assert.ok(clearsigned.length);
+      gpg.<span class="apidocCodeKeywordSpan">verifySignature</span>(clearsigned, function(verifyErr, result) {
+        assert.ifError(verifyErr);
+        assert.ok(/good signature/i, result.toString());
+        done();
+      });
+    });
+  });
+});
+...</pre></li>
     </ul>
 
 
@@ -760,7 +926,23 @@ but takes less than 0.1 seconds with `gpg` directly.
   sourceStream.pipe(gpg.stdin);
   gpg.stdout.pipe(destStream);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param  {String}   inputFileName  Name of input file.
+ * @param  {String}   outputFileName Name of output file.
+ * @param  {Array}    [args]         Array of arguments.
+ * @param  {Function} [fn]           Callback.
+ * @api public
+ */
+callStreaming: function(inputFileName, outputFileName, args, fn) {
+  spawnGPG.<span class="apidocCodeKeywordSpan">streaming</span>({source: inputFileName, dest: outputFileName}, args, fn);
+},
+
+/**
+ * Encrypt source file passed as `options.source` and store it in a file specified in `options.dest`.
+ *
+ * @param {Object}   options  Should contain 'source' and 'dest' keys.
+ * @param {Function} [fn]     Callback.
+...</pre></li>
     </ul>
 
 
