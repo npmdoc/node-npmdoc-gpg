@@ -1,6 +1,6 @@
 # npmdoc-gpg
 
-#### api documentation for  [gpg (v0.6.0)](https://github.com/drudge/node-gpg#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gpg.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gpg) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gpg.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gpg)
+#### basic api documentation for  [gpg (v0.6.0)](https://github.com/drudge/node-gpg#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-gpg.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gpg) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gpg.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gpg)
 
 #### GPG encryption and decryption in node.js by way of the gpg command-line tool
 
